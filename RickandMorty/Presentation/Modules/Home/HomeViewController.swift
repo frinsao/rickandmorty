@@ -12,7 +12,7 @@ class HomeViewController: BaseViewController {
 
     @IBOutlet weak var tableView: UITableView!
     // MARK: - Properties
-    var viewModel: HomeViewModel!
+    var viewModel: HomeViewModelProtocol!
 
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -24,8 +24,16 @@ class HomeViewController: BaseViewController {
     }
 
     // MARK: - Functions
+    override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    required public init?(coder: NSCoder) {
+        return nil
+    }
+    
     func setupBindings() {
-        viewModel.charactersHasUpdate = {
+        viewModel.charactersHasUpdated = {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

@@ -13,10 +13,10 @@ final class HomeViewModel: HomeViewModelProtocol {
     let characterUserCase: CharacterUserCaseProtocol
 
     private var currentPage = 1
-    var charactersHasUpdate: (() -> Void)?
+    var charactersHasUpdated: (() -> Void)?
     var characters = [CharacterDTO]() {
         didSet {
-            charactersHasUpdate?()
+            charactersHasUpdated?()
         }
     }
     

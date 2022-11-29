@@ -76,6 +76,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="gf3-yM-g6f" secondAttribute="bottom" id="2qL-CB-X95"/>
+                            <constraint firstAttribute="height" constant="120" id="DQ2-1e-DHq"/>
                             <constraint firstItem="gf3-yM-g6f" firstAttribute="top" secondItem="R4t-Kz-rbO" secondAttribute="top" id="FFt-xI-DTn"/>
                             <constraint firstAttribute="trailing" secondItem="gf3-yM-g6f" secondAttribute="trailing" id="Rge-XO-RTf"/>
                             <constraint firstItem="gf3-yM-g6f" firstAttribute="leading" secondItem="R4t-Kz-rbO" secondAttribute="leading" id="kR6-Je-xhK"/>

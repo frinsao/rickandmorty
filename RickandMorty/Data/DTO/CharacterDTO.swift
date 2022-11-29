@@ -15,8 +15,8 @@ struct CharacterDTO: Codable {
     let gender: String?
     let origin: OriginCharacterDTO?
     var episode = [String]()
-    let url: String?
-    let image: String?
+    let url: String
+    let image: String
 }
 
 struct OriginCharacterDTO: Codable {

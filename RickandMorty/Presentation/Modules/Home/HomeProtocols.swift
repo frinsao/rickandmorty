@@ -18,4 +18,7 @@ protocol HomeRouterProtocol {
 protocol HomeViewModelProtocol: ViewModelProtocol {
     func getCharacters()
     func checkAndLoadNextPage(from currentRow: Int)
+
+    var charactersHasUpdated: (() -> Void)? { get set }
+    var characters: [CharacterDTO] { get set }
 }

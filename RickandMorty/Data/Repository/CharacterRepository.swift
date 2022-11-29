@@ -49,8 +49,6 @@ final class CharacterRepository: CharacterRepositoryProcotol {
                 throw CharacterError.invalidResponse
             }
 
-            print(String.init(data: data, encoding: .utf8))
-
             do {
                 if (200..<300).contains(response.statusCode) {
                     return try JSONDecoder().decode(Pager<CharacterDTO>.self, from: data)

@@ -42,7 +42,7 @@ class Character {
         self.species = dto.species
         self.gender  = dto.gender
         self.episode = dto.episode
-        self.url     = URL(string: dto.url!)
-        self.image   = URL(string: dto.image!)
+        self.url     = URL(string: dto.url)
+        self.image   = URL(string: dto.image)
     }
 }
