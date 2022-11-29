@@ -5,7 +5,7 @@
 //  Created by jesus on 29/11/22.
 //
 
-import Foundation
+import UIKit
 
 final class HomeRouter {
 
@@ -17,5 +17,14 @@ final class HomeRouter {
 }
 
 extension HomeRouter: HomeRouterProtocol {
-    
+
+    func showAlert(with message: String) {
+
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let aceptButton = UIAlertAction(title: "Aceptar", style: .destructive)
+        alertController.addAction(aceptButton)
+        DispatchQueue.main.async {
+            self.viewController?.present(alertController, animated: true, completion: nil)
+        }
+    }
 }

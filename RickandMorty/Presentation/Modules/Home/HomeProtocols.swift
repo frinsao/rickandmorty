@@ -12,8 +12,10 @@ protocol HomeBuilderProtocol: BuilderProtocol {
 }
 
 protocol HomeRouterProtocol {
-
+    func showAlert(with message: String)
 }
 
 protocol HomeViewModelProtocol: ViewModelProtocol {
+    func getCharacters()
+    func checkAndLoadNextPage(from currentRow: Int)
 }

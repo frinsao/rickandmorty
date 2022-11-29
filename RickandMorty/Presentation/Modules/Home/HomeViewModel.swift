@@ -51,7 +51,9 @@ extension HomeViewModel {
                 currentPage = hasNextPage ? currentPage + 1 : 1
                 needNextPage = hasNextPage
             } catch {
-
+                if let error = error as? CharacterError {
+                    router.showAlert(with: error.localized())
+                }
             }
         }
     }
