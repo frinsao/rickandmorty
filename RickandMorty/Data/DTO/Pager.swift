@@ -8,7 +8,11 @@
 import Foundation
 
 struct Pager<T: Codable>: Codable {
-    let count: Int?
-    let next: String?
+    var info: PagerInfo
     var results = [T]()
+}
+
+struct PagerInfo: Codable {
+    var count: Int
+    var next: String?
 }

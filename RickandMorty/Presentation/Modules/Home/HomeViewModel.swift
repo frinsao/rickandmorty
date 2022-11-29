@@ -24,6 +24,7 @@ final class HomeViewModel: HomeViewModelProtocol {
         self.router = router
         self.characterUserCase = characterUserCase
     }
+    private var needNextPage = false
 }
 
 // MARK: - Life cycle
@@ -48,9 +49,16 @@ extension HomeViewModel {
                 let (characters, hasNextPage) = try await characterUserCase.getCharacters(from: currentPage)
                 self.characters.append(contentsOf: characters)
                 currentPage = hasNextPage ? currentPage + 1 : 1
+                needNextPage = hasNextPage
             } catch {
 
             }
+        }
+    }
+
+    func checkAndLoadNextPage(from currentRow: Int) {
+        if needNextPage && characters.count - 6 < currentRow {
+            getCharacters()
         }
     }
 }

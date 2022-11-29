@@ -26,7 +26,7 @@ extension CharacterUserCase: CharacterUserCaseProtocol {
         do {
 
             let response = try await repository.getCharacter(from: page)
-            guard let nextPage = response.next, !nextPage.isEmpty  else {
+            guard let nextPage = response.info.next, !nextPage.isEmpty  else {
                 return (response.results, false)
             }
 
