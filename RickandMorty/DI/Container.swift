@@ -19,4 +19,8 @@ extension Container {
             self.window?.makeKeyAndVisible()
         }
     }
+
+    func characterDetailBuilder() -> CharacterDetailBuilder {
+        return CharacterDetailBuilder()
+    }
 }

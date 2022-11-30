@@ -27,4 +27,9 @@ extension HomeRouter: HomeRouterProtocol {
             self.viewController?.present(alertController, animated: true, completion: nil)
         }
     }
+
+    func pushToDetail(with character: CharacterDTO) {
+        let detailController = Container.shared.characterDetailBuilder().build(with: character)
+        viewController?.navigationController?.pushViewController(detailController, animated: true)
+    }
 }

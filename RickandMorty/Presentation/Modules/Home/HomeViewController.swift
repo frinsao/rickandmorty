@@ -21,18 +21,12 @@ class HomeViewController: BaseViewController {
         viewModel.viewDidLoad()
         setupTableView()
         setupBindings()
+
+        navigationItem.title = "Home"
     }
 
-    // MARK: - Functions
-    override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-
-    required public init?(coder: NSCoder) {
-        return nil
-    }
-    
-    func setupBindings() {
+    // MARK: - Functions    
+    fileprivate func setupBindings() {
         viewModel.charactersHasUpdated = {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -61,6 +55,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
         cell.character = Character(dto: viewModel.characters[indexPath.row])
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let character = viewModel.characters[indexPath.row]
+        viewModel.pushToDetail(with: character)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

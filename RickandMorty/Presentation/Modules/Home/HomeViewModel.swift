@@ -63,6 +63,10 @@ extension HomeViewModel {
             getCharacters()
         }
     }
+
+    func pushToDetail(with character: CharacterDTO) {
+        router.pushToDetail(with: character)
+    }
 }
 
 

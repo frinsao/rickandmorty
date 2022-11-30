@@ -19,6 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         Container.shared.window = window
         Container.shared.home()
+        UINavigationBar.appearance().tintColor                  = .black
+        UINavigationBar.appearance().barTintColor               = .black
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
