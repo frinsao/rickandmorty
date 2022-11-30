@@ -17,6 +17,7 @@ final class CharacterUserCase {
 
 protocol CharacterUserCaseProtocol {
     func getCharacters(from page: Int) async throws -> ([CharacterDTO], Bool)
+    func filterCharacter(with name: String, page: Int) async throws -> ([CharacterDTO], Bool)
 }
 
 extension CharacterUserCase: CharacterUserCaseProtocol {
@@ -26,6 +27,17 @@ extension CharacterUserCase: CharacterUserCaseProtocol {
         do {
 
             let response = try await repository.getCharacter(from: page)
+            guard let nextPage = response.info.next, !nextPage.isEmpty  else {
+                return (response.results, false)
+            }
+
+            return (response.results, true)
+        }
+    }
+
+    func filterCharacter(with name: String, page: Int) async throws -> ([CharacterDTO], Bool) {
+        do {
+            let response = try await repository.filterCharacter(with: name, page: page)
             guard let nextPage = response.info.next, !nextPage.isEmpty  else {
                 return (response.results, false)
             }

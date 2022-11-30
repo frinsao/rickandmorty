@@ -33,12 +33,33 @@ enum CharacterError: Error {
 
 protocol CharacterRepositoryProcotol {
     func getCharacter(from page: Int) async throws -> Pager<CharacterDTO>
+    func filterCharacter(with name: String, page: Int) async throws -> Pager<CharacterDTO>
 }
 
 final class CharacterRepository: CharacterRepositoryProcotol {
 
-    func getCharacter(from page: Int) async throws -> Pager<CharacterDTO>{
-        guard let url = URL(string: "https://rickandmortyapi.com/api/character/?page=\(page)") else {
+    func getCharacter(from page: Int) async throws -> Pager<CharacterDTO> {
+        do {
+            let response = try await characterService(with: "https://rickandmortyapi.com/api/character/?page=\(page)", type: Pager<CharacterDTO> .self)
+            return response
+        } catch {
+            throw error
+        }
+    }
+
+    func filterCharacter(with name: String, page: Int) async throws -> Pager<CharacterDTO> {
+
+        do {
+            let response = try await characterService(with: "https://rickandmortyapi.com/api/character/?page=\(page)&name=\(name)", type: Pager<CharacterDTO> .self)
+            return response
+        } catch {
+            throw error
+        }
+    }
+
+    func characterService<T: Decodable>(with stringURL: String, type: T.Type ) async throws -> T {
+
+        guard let url = URL(string: stringURL) else {
             throw CharacterError.badURL
         }
 
@@ -48,10 +69,11 @@ final class CharacterRepository: CharacterRepositoryProcotol {
             guard let response = response as? HTTPURLResponse else {
                 throw CharacterError.invalidResponse
             }
-
+            print(stringURL)
+            print(String.init(data: data, encoding: .utf8)!)
             do {
                 if (200..<300).contains(response.statusCode) {
-                    return try JSONDecoder().decode(Pager<CharacterDTO>.self, from: data)
+                    return try JSONDecoder().decode(type.self, from: data)
                 } else {
                     throw CharacterError.badResponse
                 }

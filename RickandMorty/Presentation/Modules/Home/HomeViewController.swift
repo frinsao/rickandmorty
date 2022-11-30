@@ -9,8 +9,9 @@ import UIKit
 
 class HomeViewController: BaseViewController {
     // MARK: - IBOutlets
-
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+
     // MARK: - Properties
     var viewModel: HomeViewModelProtocol!
 
@@ -19,6 +20,7 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
 
         viewModel.viewDidLoad()
+        setupUI()
         setupTableView()
         setupBindings()
 
@@ -34,7 +36,18 @@ class HomeViewController: BaseViewController {
         }
     }
 
+    fileprivate func setupUI() {
+        searchBar.searchTextField.addTarget(self, action: #selector(filterAction), for: .editingChanged)
+    }
+
     // MARK: - Observers
+    @objc func filterAction() {
+        if let text = searchBar.searchTextField.text {
+            viewModel.charactersFiltered(with: text, isfirstSearching: true)
+        } else {
+            viewModel.restoreResults()
+        }
+    }
 
 }
 
@@ -51,7 +64,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        viewModel.checkAndLoadNextPage(from: indexPath.row)
+        viewModel.checkAndLoadNextPage(from: indexPath.row, text: searchBar.searchTextField.text )
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
         cell.character = Character(dto: viewModel.characters[indexPath.row])
         return cell

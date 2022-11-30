@@ -17,10 +17,13 @@ protocol HomeRouterProtocol {
 }
 
 protocol HomeViewModelProtocol: ViewModelProtocol {
-    func getCharacters()
-    func checkAndLoadNextPage(from currentRow: Int)
-    func pushToDetail(with character: CharacterDTO)
-
     var charactersHasUpdated: (() -> Void)? { get set }
     var characters: [CharacterDTO] { get set }
+    
+    func getCharacters()
+    func checkAndLoadNextPage(from currentRow: Int, text: String?)
+    func charactersFiltered(with text: String, isfirstSearching: Bool)
+    func restoreResults()
+
+    func pushToDetail(with character: CharacterDTO)
 }
