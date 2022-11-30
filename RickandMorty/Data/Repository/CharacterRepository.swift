@@ -69,8 +69,7 @@ final class CharacterRepository: CharacterRepositoryProcotol {
             guard let response = response as? HTTPURLResponse else {
                 throw CharacterError.invalidResponse
             }
-            print(stringURL)
-            print(String.init(data: data, encoding: .utf8)!)
+            
             do {
                 if (200..<300).contains(response.statusCode) {
                     return try JSONDecoder().decode(type.self, from: data)

@@ -23,9 +23,7 @@ protocol CharacterUserCaseProtocol {
 extension CharacterUserCase: CharacterUserCaseProtocol {
 
     func getCharacters(from page: Int) async throws -> ([CharacterDTO], Bool) {
-
         do {
-
             let response = try await repository.getCharacter(from: page)
             guard let nextPage = response.info.next, !nextPage.isEmpty  else {
                 return (response.results, false)
