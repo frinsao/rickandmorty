@@ -40,7 +40,7 @@ final class CharacterRepository: CharacterRepositoryProcotol {
 
     func getCharacter(from page: Int) async throws -> Pager<CharacterDTO> {
         do {
-            let response = try await characterService(with: "https://rickandmortyapi.com/api/character/?page=\(page)", type: Pager<CharacterDTO> .self)
+            let response = try await characterService(with: CharacterEndpoint.getCharacterListWith(page).endpoint, type: Pager<CharacterDTO> .self)
             return response
         } catch {
             throw error
@@ -50,7 +50,7 @@ final class CharacterRepository: CharacterRepositoryProcotol {
     func filterCharacter(with name: String, page: Int) async throws -> Pager<CharacterDTO> {
 
         do {
-            let response = try await characterService(with: "https://rickandmortyapi.com/api/character/?page=\(page)&name=\(name)", type: Pager<CharacterDTO> .self)
+            let response = try await characterService(with: CharacterEndpoint.getFilterCharacterWith(name, and: page).endpoint, type: Pager<CharacterDTO> .self)
             return response
         } catch {
             throw error
